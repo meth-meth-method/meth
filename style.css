@@ -83,7 +83,7 @@ section {
 }
 
 .episodes li .content {
-    background: rgba(0, 0, 0, .2) center;
+    background: rgba(0, 0, 0, .6) center;
     background-size: cover;
     box-shadow: 0 2em 3em -1.5em #000;
     transform: rotateY(3deg);
