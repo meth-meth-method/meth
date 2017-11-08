@@ -68,5 +68,5 @@ function swivel(element) {
     update(0);
 }
 
-swivel(document.querySelector('header > img'));
+swivel(document.querySelector('header img'));
 loadLatestVideos();
