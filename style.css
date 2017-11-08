@@ -105,6 +105,14 @@ section {
     transform: none;
 }
 
+@media screen and (max-width: 1300px) {
+    .episodes li iframe,
+    .episodes li .content {
+        height: 208px;
+        width: 370px;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     section {
         margin: 2em 5vw;
