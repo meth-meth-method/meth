@@ -43,9 +43,10 @@ const $episodeList = $latestEpisodes.querySelector('.episodes');
 function swivel(element) {
 
     function update(time) {
-        const ex = 10;
-        const x = Math.sin(time / 1231) * ex;
-        const y = Math.sin(time / 1458) * ex;
+        const speedMultiplier = 0.2;
+        const motionAmplifier = 10;
+        const x = Math.sin(time / 1231 * speedMultiplier) * motionAmplifier;
+        const y = Math.sin(time / 1458 * speedMultiplier) * motionAmplifier;
 
         element.style.transform = [
             `rotateX(${x}deg)`,
