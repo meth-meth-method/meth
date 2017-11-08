@@ -79,10 +79,11 @@ section {
     list-style-type: none;
     justify-content: center;
     margin: -2em;
+    padding: 0;
 }
 
 .episodes li {
-    margin: 2em;
+    margin: 3em 2em;
     opacity: 0.9;
     perspective: 500px;
     transition: all 0.3s;
@@ -91,8 +92,8 @@ section {
 .episodes li .content {
     background: rgba(0, 0, 0, .2) center;
     background-size: cover;
-    box-shadow: 0 20px 30px -15px #000;
-    transform: rotateY(5deg);
+    box-shadow: 0 2em 3em -1.5em #000;
+    transform: rotateY(3deg);
     transition: all 0.3s ease;
 }
 
@@ -109,4 +110,20 @@ section {
 
 .episodes li:hover .content {
     transform: none;
+}
+
+@media screen and (max-width: 1024px) {
+    section {
+        margin: 2em 5vw;
+    }
+
+    .episodes li {
+        margin: 6vw;
+    }
+
+    .episodes li iframe,
+    .episodes li .content {
+        height: 39.375vw;
+        width: 70vw;
+    }
 }
