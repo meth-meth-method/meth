@@ -43,7 +43,6 @@ header img {
 footer {
     background: #000;
     color: yellow;
-    flex: 0 1 auto;
     padding: 4em 10vw;
 }
 
