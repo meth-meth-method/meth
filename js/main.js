@@ -13,32 +13,41 @@ function loadVideo(videoId) {
     return loadAPI(`v3/videos?id=${videoId}&part=player`);
 }
 
-searchChannel('UC8A0M0eDttdB11MHxX58vXQ', 8)
-.then(data => {
-    data.items.map(item => {
+function loadLatestVideos(count = 8) {
+    const $latestEpisodes = document.querySelector('#latest-episodes');
+    const $episodeList = $latestEpisodes.querySelector('.episodes');
+
+    const $contentElements = [];
+    for (let i = 0; i < count; i++) {
         const $video = document.createElement('li');
         const $content = document.createElement('div');
         $content.classList.add('content');
-        $content.style.backgroundImage = `url(${item.snippet.thumbnails.high.url})`;
 
         $video.appendChild($content);
         $episodeList.appendChild($video);
 
-        function createEmbed() {
-            loadVideo(item.id.videoId)
-            .then(data => {
-                $content.innerHTML = data.items[0].player.embedHtml;
-            });
+        $contentElements.push($content);
+    }
 
-            $content.removeEventListener('mousemove', createEmbed);
-        }
+    searchChannel('UC8A0M0eDttdB11MHxX58vXQ', count)
+    .then(data => {
+        data.items.map((item, index) => {
+            const $content = $contentElements[index];
+            $content.style.backgroundImage = `url(${item.snippet.thumbnails.high.url})`;
 
-        $content.addEventListener('mousemove', createEmbed);
+            function createEmbed() {
+                loadVideo(item.id.videoId)
+                .then(data => {
+                    $content.innerHTML = data.items[0].player.embedHtml;
+                });
+
+                $content.removeEventListener('mousemove', createEmbed);
+            }
+
+            $content.addEventListener('mousemove', createEmbed);
+        });
     });
-});
-
-const $latestEpisodes = document.querySelector('#latest-episodes');
-const $episodeList = $latestEpisodes.querySelector('.episodes');
+}
 
 function swivel(element) {
 
@@ -60,3 +69,4 @@ function swivel(element) {
 }
 
 swivel(document.querySelector('header > img'));
+loadLatestVideos();
