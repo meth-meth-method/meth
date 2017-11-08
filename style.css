@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-    background: #111 url('./img/mmm-back.png');
+    background: #4f419d url('./img/mmm-back.png');
     background-attachment: fixed;
     background-size: cover;
     color: #fff;
