@@ -84,7 +84,6 @@ section {
 
 .episodes li {
     margin: 3em 2em;
-    opacity: 0.9;
     perspective: 500px;
     transition: all 0.3s;
 }
