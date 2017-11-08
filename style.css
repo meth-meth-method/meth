@@ -67,11 +67,6 @@ section {
     margin: 2em 10vw;
 }
 
-
-#latest-episodes {
-
-}
-
 .episodes {
     display: flex;
     flex-flow: row wrap;
