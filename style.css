@@ -24,6 +24,9 @@ a {
 
 em {
     background: black;
+    box-sizing: border-box;
+    box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
     color: yellow;
     font-style: normal;
     line-height: 1.7;
