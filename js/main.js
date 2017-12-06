@@ -13,10 +13,7 @@ function loadVideo(videoId) {
     return loadAPI(`v3/videos?id=${videoId}&part=player`);
 }
 
-function loadLatestVideos(count = 8) {
-    const $latestEpisodes = document.querySelector('#latest-episodes');
-    const $episodeList = $latestEpisodes.querySelector('.episodes');
-
+function createVideoPlaceholders($episodeList, count) {
     const $contentElements = [];
     for (let i = 0; i < count; i++) {
         const $video = document.createElement('li');
@@ -28,6 +25,14 @@ function loadLatestVideos(count = 8) {
 
         $contentElements.push($content);
     }
+    return $contentElements;
+}
+
+function loadLatestVideos(count = 8) {
+    const $latestEpisodes = document.querySelector('#latest-episodes');
+    const $episodeList = $latestEpisodes.querySelector('.episodes');
+
+    const $contentElements = createVideoPlaceholders($episodeList, count);
 
     searchChannel('UC8A0M0eDttdB11MHxX58vXQ', count)
     .then(data => {
