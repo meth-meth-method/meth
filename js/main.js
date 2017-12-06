@@ -9,8 +9,25 @@ function searchChannel(channelId, maxResults = 1) {
     return loadAPI(`v3/search?channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`);
 }
 
+function listPlaylistVideos(playlistId) {
+    return loadAPI(`v3/playlistItems?playlistId=${playlistId}&part=snippet,id`);
+}
+
 function loadVideo(videoId) {
     return loadAPI(`v3/videos?id=${videoId}&part=player`);
+}
+
+function populateEpisodeLists() {
+    const $episodeLists = document.querySelectorAll('ul.episodes');
+    [...$episodeLists].forEach(populateEpisodeList);
+}
+
+function populateEpisodeList($episodeList) {
+    const type = $episodeList.dataset.type;
+
+    if (type === 'latest') {
+        loadLatestVideos($episodeList);
+    }
 }
 
 function createVideoPlaceholders($episodeList, count) {
@@ -43,18 +60,18 @@ function injectVideo($content, item) {
     $content.addEventListener('mousemove', createEmbed);
 }
 
-function loadLatestVideos(count = 8) {
-    const $latestEpisodes = document.querySelector('#latest-episodes');
-    const $episodeList = $latestEpisodes.querySelector('.episodes');
+function loadLatestVideos($episodeList) {
+    const {channel, count} = $episodeList.dataset;
+    const $elements = createVideoPlaceholders($episodeList, count);
+    searchChannel(channel, count).then(injectResult($elements));
+}
 
-    const $contentElements = createVideoPlaceholders($episodeList, count);
-
-    searchChannel('UC8A0M0eDttdB11MHxX58vXQ', count)
-    .then(data => {
+function injectResult($elements) {
+    return function(data) {
         data.items.map((item, index) => {
-            injectVideo($contentElements[index], item);
+            injectVideo($elements[index], item);
         });
-    });
+    }
 }
 
 function swivel(element) {
@@ -77,4 +94,5 @@ function swivel(element) {
 }
 
 swivel(document.querySelector('header img'));
-loadLatestVideos();
+
+populateEpisodeLists();
