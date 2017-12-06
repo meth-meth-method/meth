@@ -28,6 +28,21 @@ function createVideoPlaceholders($episodeList, count) {
     return $contentElements;
 }
 
+function injectVideo($content, item) {
+    $content.style.backgroundImage = `url(${item.snippet.thumbnails.high.url})`;
+
+    function createEmbed() {
+        loadVideo(item.id.videoId)
+        .then(data => {
+            $content.innerHTML = data.items[0].player.embedHtml;
+        });
+
+        $content.removeEventListener('mousemove', createEmbed);
+    }
+
+    $content.addEventListener('mousemove', createEmbed);
+}
+
 function loadLatestVideos(count = 8) {
     const $latestEpisodes = document.querySelector('#latest-episodes');
     const $episodeList = $latestEpisodes.querySelector('.episodes');
@@ -37,19 +52,7 @@ function loadLatestVideos(count = 8) {
     searchChannel('UC8A0M0eDttdB11MHxX58vXQ', count)
     .then(data => {
         data.items.map((item, index) => {
-            const $content = $contentElements[index];
-            $content.style.backgroundImage = `url(${item.snippet.thumbnails.high.url})`;
-
-            function createEmbed() {
-                loadVideo(item.id.videoId)
-                .then(data => {
-                    $content.innerHTML = data.items[0].player.embedHtml;
-                });
-
-                $content.removeEventListener('mousemove', createEmbed);
-            }
-
-            $content.addEventListener('mousemove', createEmbed);
+            injectVideo($contentElements[index], item);
         });
     });
 }
