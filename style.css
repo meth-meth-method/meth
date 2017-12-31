@@ -1,15 +1,16 @@
-html, body {
-    height: 100%;
-}
-
 body {
-    background: #4f419d url('./img/mmm-back.jpg');
+    background: #4f419d url('./img/mmm-back.jpg') no-repeat;
     background-attachment: fixed;
+    background-position: center;
     background-size: cover;
     color: #fff;
+    display: flex;
+        flex-flow: column;
+        justify-content: space-between;
     font-family: 'Signika', sans-serif;
     font-size: 20px;
     margin: 0;
+    min-height: 100vh;
 }
 
 ul {
